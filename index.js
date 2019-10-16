@@ -61,7 +61,10 @@ export class CustomTextInput extends Component {
   }
 
   componentDidMount() {
-    install(findNodeHandle(this.input), this.props.customKeyboardType);
+  	// JUst give a short time out until the native node presents in the UI queue.
+    setTimeout(() => {
+      install(findNodeHandle(this.input), this.props.customKeyboardType);
+    }, 100)
   }
 
   componentWillReceiveProps(newProps) {
@@ -77,9 +80,7 @@ export class CustomTextInput extends Component {
   render() {
     const { customKeyboardType, ...others } = this.props;
     return (
-      <View>
-        <TextInput {...others} ref={this.onRef} />
-      </View>
+      <TextInput {...others} ref={this.onRef} />
     );
   }
 }
