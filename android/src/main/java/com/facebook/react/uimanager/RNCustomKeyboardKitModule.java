@@ -186,6 +186,38 @@ public class RNCustomKeyboardKitModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void setText(final int tag, final String text) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        final Activity activity = getCurrentActivity();
+        final ReactEditText edit = getEditById(tag);
+        if (edit == null) {
+          return;
+        }
+
+        edit.setText(text);
+      }
+    });
+  }
+
+  @ReactMethod
+  public void getText(final int tag, final Promise promise) {
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        final Activity activity = getCurrentActivity();
+        final ReactEditText edit = getEditById(tag);
+        if (edit == null) {
+          return;
+        }
+
+        promise.resolve(edit.getText().toString());
+      }
+    });
+  }
+
+  @ReactMethod
   public void backSpace(final int tag) {
     UiThreadUtil.runOnUiThread(new Runnable() {
       @Override
