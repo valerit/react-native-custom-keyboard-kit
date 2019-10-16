@@ -181,6 +181,7 @@ public class RNCustomKeyboardKitModule extends ReactContextBaseJavaModule {
         int end = Math.max(edit.getSelectionEnd(), 0);
         edit.getText().replace(Math.min(start, end), Math.max(start, end),
                 text, 0, text.length());
+
       }
     });
   }
@@ -197,6 +198,9 @@ public class RNCustomKeyboardKitModule extends ReactContextBaseJavaModule {
         }
 
         edit.setText(text);
+
+        // Set Cursor to the end
+        edit.setSelection(text.length());
       }
     });
   }
