@@ -78,7 +78,15 @@ export class CustomTextInput extends Component {
   }
 
   focus = () => {
-    this.input.focus()
+    if (this.input.__isMounted && !this.input.isFocused()) {
+      this.input.focus()
+    }
+  }
+
+  blur = () => {
+    if (this.input.__isMounted && this.input.isFocused()) {
+      this.input.blur()
+    }
   }
 
   render() {
