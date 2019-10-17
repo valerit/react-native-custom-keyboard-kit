@@ -88,6 +88,10 @@ public class RNCustomKeyboardKitModule extends ReactContextBaseJavaModule {
           edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(final View v, boolean hasFocus) {
+              // Keep the original onFocus prop of TextInput
+              if (prevListener != null) {
+                prevListener.onFocusChange(v, hasFocus);
+              }
               if (hasFocus) {
                 View keyboard = (View)edit.getTag(TAG_ID);
                 if (keyboard.getParent() == null) {
