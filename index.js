@@ -77,6 +77,10 @@ export class CustomTextInput extends Component {
     this.input = ref;
   }
 
+  focus = () => {
+    this.input.focus()
+  }
+
   render() {
     const { customKeyboardType, ...others } = this.props;
     return (
