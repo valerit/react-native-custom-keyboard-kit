@@ -3,7 +3,7 @@
 #import "RNCustomKeyboardKit.h"
 #import "RCTBridge+Private.h"
 #import "RCTUIManager.h"
-#import <React/RCTSinglelineTextInputView.h>
+#import <RCTText/RCTSinglelineTextInputView.h>
 
 @implementation RNCustomKeyboardKit
 
@@ -42,6 +42,24 @@ RCT_EXPORT_METHOD(insertText:(nonnull NSNumber *)reactTag withText:(NSString*)te
   UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
 
   [view replaceRange:view.selectedTextRange withText:text];
+}
+
+RCT_EXPORT_METHOD(setText:(nonnull NSNumber *)reactTag withText:(NSString*)text) {
+    UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
+
+    [view setText:text];
+}
+
+RCT_EXPORT_METHOD(getText:(nonnull NSNumber *)reactTag  resolver:(RCTPromiseResolveBlock)resolve
+                rejecter:(RCTPromiseRejectBlock)reject) {
+    UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
+    resolve(view.text);
+}
+
+RCT_EXPORT_METHOD(hideStandardKeyboard:(nonnull NSNumber *)reactTag) {
+    UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
+    [view setInputView:NULL];
+    [view reloadInputViews];
 }
 
 RCT_EXPORT_METHOD(backSpace:(nonnull NSNumber *)reactTag) {
