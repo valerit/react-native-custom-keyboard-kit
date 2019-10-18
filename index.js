@@ -20,7 +20,8 @@ const {
   switchSystemKeyboard,
   hideKeyboard,
   setText,
-  getText
+  getText,
+  hideStandardKeyboard
 } = CustomKeyboardKit;
 
 export {
@@ -60,12 +61,15 @@ export class CustomTextInput extends Component {
     customKeyboardType: PropTypes.string,
   }
 
-  componentDidMount() {
-  	// JUst give a short time out until the native node presents in the UI queue.
-    setTimeout(() => {
-      install(findNodeHandle(this.input), this.props.customKeyboardType);
-    }, 100)
-  }
+  // componentDidMount() {
+  //   setTimeout(() => {
+  //     install(findNodeHandle(this.input), this.props.customKeyboardType);
+  //   }, 100)
+  // }
+
+  // componentWillUnmount() {
+  //   uninstall(findNodeHandle(this.input))
+  // }
 
   componentWillReceiveProps(newProps) {
     if (newProps.customKeyboardType !== this.props.customKeyboardType) {
@@ -87,6 +91,14 @@ export class CustomTextInput extends Component {
     if (this.input.__isMounted && this.input.isFocused()) {
       this.input.blur()
     }
+  }
+
+  hideStandardKeyboard = () => {
+    hideStandardKeyboard(findNodeHandle(this.input))
+  }
+
+  getTag = () => {
+    return findNodeHandle(this.input)
   }
 
   render() {

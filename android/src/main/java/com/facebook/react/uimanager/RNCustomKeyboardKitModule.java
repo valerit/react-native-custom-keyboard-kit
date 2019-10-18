@@ -355,4 +355,10 @@ public class RNCustomKeyboardKitModule extends ReactContextBaseJavaModule {
       }
     });
   }
+
+  @ReactMethod
+  public  void hideStandardKeyboard(final int tag) {
+    final ReactEditText edit = getEditById(tag);
+    ((InputMethodManager) getReactApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edit.getWindowToken(), 0);
+  }
 }
