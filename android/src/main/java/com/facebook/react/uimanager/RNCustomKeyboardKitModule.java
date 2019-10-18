@@ -84,6 +84,8 @@ public class RNCustomKeyboardKitModule extends ReactContextBaseJavaModule {
           }
 
           edit.setTag(TAG_ID, createCustomKeyboardKit(activity, tag, type));
+          
+          final View.OnFocusChangeListener prevListener = edit.getOnFocusChangeListener();
 
           edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
