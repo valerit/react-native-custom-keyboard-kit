@@ -9,6 +9,7 @@ import {
   AppRegistry,
   View,
   Text,
+  Platform
 } from 'react-native';
 
 const { CustomKeyboardKit} = NativeModules;
@@ -61,15 +62,17 @@ export class CustomTextInput extends Component {
     customKeyboardType: PropTypes.string,
   }
 
-  // componentDidMount() {
-  //   setTimeout(() => {
-  //     install(findNodeHandle(this.input), this.props.customKeyboardType);
-  //   }, 100)
-  // }
+  componentDidMount() {
+    if (Platform.OS === 'ios') {
+      install(findNodeHandle(this.input), this.props.customKeyboardType);
+    }
+  }
 
-  // componentWillUnmount() {
-  //   uninstall(findNodeHandle(this.input))
-  // }
+  componentWillUnmount() {
+    if (Platform.OS === 'ios') {
+      uninstall(findNodeHandle(this.input))
+    }
+  }
 
   // componentWillReceiveProps(newProps) {
   //   if (newProps.customKeyboardType !== this.props.customKeyboardType) {
