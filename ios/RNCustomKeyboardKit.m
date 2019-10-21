@@ -26,10 +26,10 @@ RCT_EXPORT_METHOD(install:(nonnull NSNumber *)reactTag withType:(nonnull NSStrin
 
 RCT_EXPORT_METHOD(uninstall:(nonnull NSNumber *)reactTag)
 {
-  UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
-
-  view.inputView = nil;
-  [view reloadInputViews];
+  RCTSinglelineTextInputView *view = [_bridge.uiManager viewForReactTag:reactTag];
+  UITextField *textView = view.backedTextInputView;
+  textView.inputView = nil;
+  [textView reloadInputViews];
 }
 
 RCT_EXPORT_METHOD(insertText:(nonnull NSNumber *)reactTag withText:(NSString*)text) {

@@ -64,7 +64,9 @@ export class CustomTextInput extends Component {
 
   componentDidMount() {
     if (Platform.OS === 'ios') {
-      install(findNodeHandle(this.input), this.props.customKeyboardType);
+      setTimeout(() => {
+        install(findNodeHandle(this.input), 'empty');
+      }, 100)
     }
   }
 
