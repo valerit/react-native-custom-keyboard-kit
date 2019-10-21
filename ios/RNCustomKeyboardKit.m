@@ -18,16 +18,10 @@ RCT_EXPORT_MODULE(CustomKeyboardKit)
 
 RCT_EXPORT_METHOD(install:(nonnull NSNumber *)reactTag withType:(nonnull NSString *)keyboardType)
 {
-  UIView* inputView = [[RCTRootView alloc] initWithBridge:_bridge
-                                               moduleName:@"CustomKeyboardKit"
-                                        initialProperties:@{ @"tag": reactTag, @"type": keyboardType }];
-
   RCTSinglelineTextInputView *view = (RCTSinglelineTextInputView*)[_bridge.uiManager viewForReactTag:reactTag];
-
-    
-  [view.backedTextInputView setInputAccessoryView:inputView];
-    
-  [view reloadInputViews];
+  UITextField *textView = view.backedTextInputView;
+  textView.inputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+  [textView reloadInputViews];
 }
 
 RCT_EXPORT_METHOD(uninstall:(nonnull NSNumber *)reactTag)
@@ -45,21 +39,23 @@ RCT_EXPORT_METHOD(insertText:(nonnull NSNumber *)reactTag withText:(NSString*)te
 }
 
 RCT_EXPORT_METHOD(setText:(nonnull NSNumber *)reactTag withText:(NSString*)text) {
-    UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
-
-    [view setText:text];
+  RCTSinglelineTextInputView *view = (RCTSinglelineTextInputView*)[_bridge.uiManager viewForReactTag:reactTag];
+  UITextField *textView = view.backedTextInputView;
+  [textView setText:text];
 }
 
 RCT_EXPORT_METHOD(getText:(nonnull NSNumber *)reactTag  resolver:(RCTPromiseResolveBlock)resolve
                 rejecter:(RCTPromiseRejectBlock)reject) {
-    UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
-    resolve(view.text);
+  RCTSinglelineTextInputView *view = (RCTSinglelineTextInputView*)[_bridge.uiManager viewForReactTag:reactTag];
+  UITextField *textView = view.backedTextInputView;
+  resolve(textView.text);
 }
 
 RCT_EXPORT_METHOD(hideStandardKeyboard:(nonnull NSNumber *)reactTag) {
-    UITextView *view = (UITextView*)[_bridge.uiManager viewForReactTag:reactTag];
-    [view setInputView:NULL];
-    [view reloadInputViews];
+  RCTSinglelineTextInputView *view = (RCTSinglelineTextInputView*)[_bridge.uiManager viewForReactTag:reactTag];
+  UITextField *textView = view.backedTextInputView;
+  textView.inputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+  [textView reloadInputViews];
 }
 
 RCT_EXPORT_METHOD(backSpace:(nonnull NSNumber *)reactTag) {
