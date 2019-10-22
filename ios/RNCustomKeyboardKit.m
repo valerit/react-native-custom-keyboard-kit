@@ -20,15 +20,16 @@ RCT_EXPORT_METHOD(install:(nonnull NSNumber *)reactTag withType:(nonnull NSStrin
   RCTSinglelineTextInputView *view = (RCTSinglelineTextInputView*)[_bridge.uiManager viewForReactTag:reactTag];
   UITextField *textView = view.backedTextInputView;
   textView.inputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+  textView.inputAccessoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
   [textView reloadInputViews];
 }
 
 RCT_EXPORT_METHOD(uninstall:(nonnull NSNumber *)reactTag)
 {
   RCTSinglelineTextInputView *view = [_bridge.uiManager viewForReactTag:reactTag];
-    UITextField *textView = view.backedTextInputView;
-    textView.inputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+  UITextField *textView = view.backedTextInputView;
   textView.inputView = nil;
+  textView.inputAccessoryView = nil;
   [textView reloadInputViews];
 }
 
