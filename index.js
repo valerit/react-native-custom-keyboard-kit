@@ -65,7 +65,10 @@ export class CustomTextInput extends Component {
   componentDidMount() {
     if (Platform.OS === 'ios') {
       setTimeout(() => {
-        install(findNodeHandle(this.input), 'empty');
+        const nativeHandle = findNodeHandle(this.input)
+        if (nativeHandle) {
+          install(nativeHandle, 'empty');
+        }
       }, 100)
     }
   }
