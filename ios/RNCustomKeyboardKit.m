@@ -44,6 +44,8 @@ RCT_EXPORT_METHOD(setText:(nonnull NSNumber *)reactTag withText:(NSString*)text)
   RCTSinglelineTextInputView *view = (RCTSinglelineTextInputView*)[_bridge.uiManager viewForReactTag:reactTag];
   UITextField *textView = view.backedTextInputView;
   [textView setText:text];
+  UITextRange* range = textView.selectedTextRange;
+  [textView replaceRange:range withText:@""];
 }
 
 RCT_EXPORT_METHOD(getText:(nonnull NSNumber *)reactTag  resolver:(RCTPromiseResolveBlock)resolve
